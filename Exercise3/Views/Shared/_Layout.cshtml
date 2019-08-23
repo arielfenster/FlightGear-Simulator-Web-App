@@ -9,32 +9,59 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        function normalize(lon, lat) {
+            var newLat = (lat + 90) * (window.innerHeight / 180);
+            var newLon = (lon + 180) * (window.innerWidth / 360);
+            return { "lon": newLon, "lat": newLat };
+        }
+    </script>
+    <script>
+        function createPoint(xml) {
+            var lon = parseFloat($xml.find("lon").text());
+            var lat = parseFloat($xml.find("lat").text());
+            function lon() {
+                return lon;
+            }
+            function lat() {
+                return lat;
+            }
+            return {
+                lon: lon,
+                lat: lat
+            };
+        };
+    </script>
+
+    <script>
+        function drawPoint(lon,lat,ctx) {
+            ctx.beginPath();
+            ctx.arc(lon, lat, 5, 0, 2 * Math.PI);
+            ctx.closePath();
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "Blue";
+            ctx.stroke();
+            ctx.fillStyle = "red";
+            ctx.fill();
+        };
+    </script>
+
+    <script>
+        function drawNextLine(startLon, startLat, nextLon, nextLat, ctx) {
+            // Drawing the line between the points
+            ctx.beginPath();
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = 'red';
+            ctx.moveTo(startLon, startLat);
+            ctx.lineTo(nextLon, nextLat);
+            ctx.stroke();
+
+        }
+    </script>
+
+    @RenderBody()
+
 </body>
 </html>
