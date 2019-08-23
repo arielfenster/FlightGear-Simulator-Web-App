@@ -1,4 +1,4 @@
-# FlightGear Simulator Web App
+# FlightGear Simulator Web Application
 A web application that is used to display the position of the aircraft in real time. <br/>
 Implemented with JavaScript and Ajax.
 
