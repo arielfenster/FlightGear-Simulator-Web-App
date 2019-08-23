@@ -1,6 +1,6 @@
 # FlightGear Simulator Web Application
 A web application that is used to display the position of the aircraft in real time. <br/>
-Implemented with JavaScript and Ajax.
+Implemented using JavaScript and Ajax.
 
 ### Installing 
 * Download and install the simulator on your computer- https://www.flightgear.org/download/
