@@ -1,5 +1,6 @@
 # FlightGear Simulator Web App
-A web application that is used to display the position of the aircraft in real time.
+A web application that is used to display the position of the aircraft in real time. <br/>
+Implemented with JavaScript and Ajax.
 
 ### Installing 
 * Download and install the simulator on your computer- https://www.flightgear.org/download/
@@ -22,7 +23,8 @@ Click on the Environment tab in the toolbar shown below, and click on Time Setti
 b. Next, in order to help you speed things up and bypass the take-off procedures, click on the Cessna C172P tab, and click on Autostart. This will start the engine and prepare the aircraft to lift off.
 
 ## Displaying the position
-Run the application. Your default internet browser will open will the address 'localhost:xxx', where 'xxx' is a number. There are four of requestes you can perform which we will cover. The type of request is dependent on its format:
+Run the simulator and click on the 'Fly!' icon in the bottom left corner. Next, run the application. Your default internet browser will open with the address 'localhost:xxx', where 'xxx' is a number. There are four types of requestes you can perform which we will cover.
+The type of request is dependent on its format:
 
 ### Default view
 Here you can see the map where the positions will be pinned: 
@@ -43,9 +45,30 @@ To achieve this, type in the following request:
 ```
 localhost:xxx/display/ip/port
 ```
-where ip is the IP of the computer that the simulator is installed on, and port is the port number corresponds to the 'in' socket you configured above.
+this will connect to the specified ip and port, where 'ip' is the IP of the computer that the simulator is installed on, and 'port' is the port number corresponding to the 'in' socket you configured above.
 Each time you wish to view this outcome, you will have to refresh the page and send another request.
 
 ### Continuous points
-But what if you don't want to keep refreshing the 
+Instead of always asking for a single point, you can ask for an infinite series of points with the following request:
+```
+localhost:xxx/display/ip/port/delay
+```
+this will make a request every 'delay' number of seconds and display a path. The outcome will look something like:
 
+![path](https://user-images.githubusercontent.com/45856261/63609174-435c1d80-c5df-11e9-8c72-9985e3f98c0c.PNG)
+
+### Save your route
+You can also save a route the aircraft has performed to a file. The file will be an xml file containing the points of the route as well as the throttle and rudder values at those points. To achieve this, type in the request:
+```
+localhost:xxx/save/ip/port/delay/total_time/file_name
+```
+A new request will be sent every 'delay' seconds during a time period of 'total_time' number of seconds. The information will be saved in a file where you choose the file's name.
+Once the time has passed, a pop up will appear stating that the saving process has finished, and no more points will be displayed.
+
+### Load your route
+To load your saved route, enter the request:
+```
+display/file_name/delay
+```
+this will show the next point in the route every 'delay' seconds. Once all the points are visible, a pop up will appear stating so.
+Note that if you provide a file name that doesn't exist, the default map will appear with no points visible.
